@@ -1,7 +1,7 @@
 # 🧠👂 Brain-Ear Axis Research Platform
 
 <div align="center">
-  <img src="docs/assets/logo.png" width="600" alt="Brain-Ear Axis Logo">
+  <img src="https://raw.githubusercontent.com/JJshome/Brain-Ear-Axis/main/docs/assets/logo.png" width="600" alt="Brain-Ear Axis Logo">
 </div>
 
 ## 📊 Multi-Modal Analysis Framework for Brain-Ear Interactions
@@ -18,15 +18,21 @@ The Brain-Ear Axis Research Platform is a comprehensive suite of tools for analy
 
 ## 🧬 Interactive Data Integration Visualization
 
-![Brain-Ear Axis Integration](docs/assets/brain_ear_integration.png)
+<div align="center">
+  <img src="https://raw.githubusercontent.com/JJshome/Brain-Ear-Axis/main/docs/assets/brain_ear_integration.svg" width="800" alt="Brain-Ear Axis Integration">
+</div>
 
 ## 📈 Analyzing Multi-Omics Data
 
-![Multi-Omics Framework](docs/assets/multi_omics_framework.png)
+<div align="center">
+  <img src="https://raw.githubusercontent.com/JJshome/Brain-Ear-Axis/main/docs/assets/multi_omics_framework.svg" width="800" alt="Multi-Omics Framework">
+</div>
 
 ## 🌐 Network Analysis of Brain-Ear Connectivity
 
-![Connectivity Network](docs/assets/connectivity_network.png)
+<div align="center">
+  <img src="https://raw.githubusercontent.com/JJshome/Brain-Ear-Axis/main/docs/assets/connectivity_network.svg" width="800" alt="Connectivity Network">
+</div>
 
 ## 📝 Module Overview
 
