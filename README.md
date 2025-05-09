@@ -59,11 +59,10 @@ pip install -r requirements.txt
 
 ## 📖 Documentation
 
-Extensive documentation is available in the [docs](https://github.com/JJshome/Brain-Ear-Axis/tree/main/docs) directory, including:
-
-- [User Guide](https://github.com/JJshome/Brain-Ear-Axis/tree/main/docs/user_guide.md)
-- [API Reference](https://github.com/JJshome/Brain-Ear-Axis/tree/main/docs/api_reference.md)
-- [Example Workflows](https://github.com/JJshome/Brain-Ear-Axis/tree/main/docs/examples.md)
+Extensive documentation is available in the docs directory, including:
+* [User Guide](docs/User%20Guide.md)
+* [API Reference](docs/API%20Reference.md)
+* [Example Workflows](docs/Example%20Workflows.md)
 
 ## 🚀 Quick Start
 
@@ -103,15 +102,6 @@ analyzer.visualize_integrated_results()
 - [Example Clustering Analysis](https://github.com/JJshome/Brain-Ear-Axis/tree/main/examples/clustering_results.md)
 - [Multi-Omics Integration Case Study](https://github.com/JJshome/Brain-Ear-Axis/tree/main/examples/multi_omics_case_study.md)
 - [Connectivity Visualization Gallery](https://github.com/JJshome/Brain-Ear-Axis/tree/main/examples/connectivity_gallery.md)
-
-## 📣 Citation
-
-If you use this platform in your research, please cite:
-
-```
-Doe, J., Smith, A., et al. (2025). Brain-Ear Axis: A comprehensive platform for integrated analysis 
-of neural, microbiome, and connectivity data in auditory research. Journal of Neuroscience Methods.
-```
 
 ## 👥 Contributors
 
