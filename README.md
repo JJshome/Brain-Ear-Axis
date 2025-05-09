@@ -99,9 +99,9 @@ analyzer.visualize_integrated_results()
 
 ## 📊 Example Results
 
-- [Example Clustering Analysis](https://github.com/JJshome/Brain-Ear-Axis/tree/main/examples/clustering_results.md)
-- [Multi-Omics Integration Case Study](https://github.com/JJshome/Brain-Ear-Axis/tree/main/examples/multi_omics_case_study.md)
-- [Connectivity Visualization Gallery](https://github.com/JJshome/Brain-Ear-Axis/tree/main/examples/connectivity_gallery.md)
+- [Example Clustering Analysis](https://github.com/JJshome/Brain-Ear-Axis/blob/main/examples/clustering_analysis.svg)
+- [Multi-Omics Integration Case Study](https://github.com/JJshome/Brain-Ear-Axis/blob/main/examples/multi_omics_integration.svg)
+- [Connectivity Visualization Gallery](https://github.com/JJshome/Brain-Ear-Axis/blob/main/examples/connectivity_visualization.svg)
 
 ## 📄 License
 
