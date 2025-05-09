@@ -1,0 +1,322 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    @keyframes rotate-reverse {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
+    }
+    
+    @keyframes pulse {
+      0% { r: 4; opacity: 0.7; }
+      50% { r: 6; opacity: 1; }
+      100% { r: 4; opacity: 0.7; }
+    }
+    
+    @keyframes dash {
+      to {
+        stroke-dashoffset: -1000;
+      }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes colorChange {
+      0% { fill: #ff6b6b; }
+      33% { fill: #48dbfb; }
+      66% { fill: #1dd1a1; }
+      100% { fill: #ff6b6b; }
+    }
+    
+    @keyframes pathGrow {
+      0% { 
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+      }
+      100% {
+        stroke-dashoffset: 0;
+      }
+    }
+    
+    .omic-layer {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .rotate-element {
+      transform-origin: center;
+      animation: rotate 60s linear infinite;
+    }
+    
+    .rotate-reverse {
+      transform-origin: center;
+      animation: rotate-reverse 45s linear infinite;
+    }
+    
+    .connection-line {
+      stroke-dasharray: 5;
+      animation: dash 30s linear infinite;
+    }
+    
+    .data-point {
+      animation: pulse 3s infinite alternate;
+    }
+    
+    .label {
+      animation: fadeIn 2s;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+    }
+    
+    .color-shift {
+      animation: colorChange 10s infinite;
+    }
+    
+    .grow-path {
+      animation: pathGrow 5s ease-out forwards;
+    }
+    
+    /* Different animation timing for variety */
+    .delay-1 { animation-delay: 0.5s; }
+    .delay-2 { animation-delay: 1s; }
+    .delay-3 { animation-delay: 1.5s; }
+    .delay-4 { animation-delay: 2s; }
+    .delay-5 { animation-delay: 2.5s; }
+  </style>
+  
+  <!-- Background with gradient -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f0c29" />
+      <stop offset="50%" stop-color="#302b63" />
+      <stop offset="100%" stop-color="#24243e" />
+    </linearGradient>
+    
+    <linearGradient id="omic-gradient-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fd746c" />
+      <stop offset="100%" stop-color="#ff9068" />
+    </linearGradient>
+    
+    <linearGradient id="omic-gradient-2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2193b0" />
+      <stop offset="100%" stop-color="#6dd5ed" />
+    </linearGradient>
+    
+    <linearGradient id="omic-gradient-3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#11998e" />
+      <stop offset="100%" stop-color="#38ef7d" />
+    </linearGradient>
+    
+    <linearGradient id="omic-gradient-4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a770ef" />
+      <stop offset="50%" stop-color="#cf8bf3" />
+      <stop offset="100%" stop-color="#fdb99b" />
+    </linearGradient>
+    
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  
+  <rect width="100%" height="100%" fill="url(#bg-gradient)" />
+  
+  <!-- Decorative Background Elements -->
+  <g class="rotate-element" opacity="0.15">
+    <circle cx="400" cy="250" r="200" fill="none" stroke="white" stroke-width="1" />
+    <circle cx="400" cy="250" r="220" fill="none" stroke="white" stroke-width="0.5" />
+    <circle cx="400" cy="250" r="240" fill="none" stroke="white" stroke-width="0.5" />
+    <circle cx="400" cy="250" r="260" fill="none" stroke="white" stroke-width="0.5" />
+  </g>
+  
+  <g class="rotate-reverse" opacity="0.1">
+    <polygon points="400,100 500,150 550,250 500,350 400,400 300,350 250,250 300,150" 
+           fill="none" stroke="white" stroke-width="1" />
+    <polygon points="400,80 520,140 580,250 520,360 400,420 280,360 220,250 280,140" 
+           fill="none" stroke="white" stroke-width="0.5" />
+  </g>
+  
+  <!-- Center Integration Hub -->
+  <g transform="translate(400, 250)">
+    <circle cx="0" cy="0" r="50" fill="rgba(255,255,255,0.1)" stroke="white" stroke-width="2" />
+    <circle cx="0" cy="0" r="30" fill="rgba(255,255,255,0.2)" />
+    <text x="0" y="5" font-size="12" fill="white" text-anchor="middle" class="label">INTEGRATION</text>
+    
+    <!-- Animated inner particles -->
+    <g>
+      <circle class="data-point delay-1" cx="10" cy="5" r="2" fill="white" />
+      <circle class="data-point delay-2" cx="-8" cy="10" r="2" fill="white" />
+      <circle class="data-point delay-3" cx="15" cy="-10" r="2" fill="white" />
+      <circle class="data-point delay-4" cx="-12" cy="-8" r="2" fill="white" />
+      <circle class="data-point delay-5" cx="0" cy="12" r="2" fill="white" />
+      <circle class="data-point delay-1" cx="-5" cy="-15" r="2" fill="white" />
+      <circle class="data-point delay-2" cx="18" cy="3" r="2" fill="white" />
+    </g>
+  </g>
+  
+  <!-- Layer 1: Genomics -->
+  <g class="omic-layer delay-1" transform="translate(200, 150)">
+    <ellipse cx="0" cy="0" rx="100" ry="60" fill="url(#omic-gradient-1)" opacity="0.8" />
+    
+    <!-- DNA Helix Representation -->
+    <g class="rotate-element">
+      <path d="M-40,-20 C-20,-30 20,-10 40,-20 M-40,0 C-20,-10 20,10 40,0 M-40,20 C-20,10 20,30 40,20" 
+            stroke="white" stroke-width="2" fill="none" />
+      
+      <!-- DNA Base Pairs -->
+      <line x1="-30" y1="-25" x2="-30" y2="-5" stroke="white" stroke-width="2" />
+      <line x1="-10" y1="-15" x2="-10" y2="5" stroke="white" stroke-width="2" />
+      <line x1="10" y1="-5" x2="10" y2="15" stroke="white" stroke-width="2" />
+      <line x1="30" y1="-15" x2="30" y2="5" stroke="white" stroke-width="2" />
+    </g>
+    
+    <!-- Data points -->
+    <circle class="data-point delay-1" cx="-60" cy="-20" r="4" fill="white" />
+    <circle class="data-point delay-2" cx="-40" cy="30" r="4" fill="white" />
+    <circle class="data-point delay-3" cx="-20" cy="-10" r="4" fill="white" />
+    <circle class="data-point delay-4" cx="20" cy="10" r="4" fill="white" />
+    <circle class="data-point delay-5" cx="40" cy="-15" r="4" fill="white" />
+    <circle class="data-point delay-1" cx="60" cy="20" r="4" fill="white" />
+    
+    <text x="0" y="0" font-size="18" fill="white" text-anchor="middle" class="label">GENOMICS</text>
+  </g>
+  
+  <!-- Layer 2: Transcriptomics -->
+  <g class="omic-layer delay-2" transform="translate(600, 150)">
+    <ellipse cx="0" cy="0" rx="100" ry="60" fill="url(#omic-gradient-2)" opacity="0.8" />
+    
+    <!-- RNA Representation -->
+    <path d="M-50,0 C-30,30 -10,-30 10,30 C30,-30 50,0 70,0" 
+          stroke="white" stroke-width="2" fill="none" class="color-shift" />
+    
+    <!-- Data points -->
+    <circle class="data-point delay-2" cx="-60" cy="-10" r="4" fill="white" />
+    <circle class="data-point delay-3" cx="-30" cy="20" r="4" fill="white" />
+    <circle class="data-point delay-4" cx="0" cy="-20" r="4" fill="white" />
+    <circle class="data-point delay-5" cx="30" cy="10" r="4" fill="white" />
+    <circle class="data-point delay-1" cx="60" cy="-15" r="4" fill="white" />
+    
+    <text x="0" y="0" font-size="18" fill="white" text-anchor="middle" class="label">TRANSCRIPTOMICS</text>
+  </g>
+  
+  <!-- Layer 3: Proteomics -->
+  <g class="omic-layer delay-3" transform="translate(600, 350)">
+    <ellipse cx="0" cy="0" rx="100" ry="60" fill="url(#omic-gradient-3)" opacity="0.8" />
+    
+    <!-- Protein Structure Representation -->
+    <g>
+      <path d="M-40,-20 C-30,0 -20,-10 -10,10 C0,-5 10,15 20,0 C30,20 40,-15 50,5" 
+            stroke="white" stroke-width="3" fill="none" />
+      <circle cx="-40" cy="-20" r="5" fill="white" />
+      <circle cx="-10" cy="10" r="5" fill="white" />
+      <circle cx="20" cy="0" r="5" fill="white" />
+      <circle cx="50" cy="5" r="5" fill="white" />
+    </g>
+    
+    <!-- Data points -->
+    <circle class="data-point delay-3" cx="-60" cy="-20" r="4" fill="white" />
+    <circle class="data-point delay-4" cx="-40" cy="30" r="4" fill="white" />
+    <circle class="data-point delay-5" cx="0" cy="-25" r="4" fill="white" />
+    <circle class="data-point delay-1" cx="40" cy="20" r="4" fill="white" />
+    <circle class="data-point delay-2" cx="60" cy="-10" r="4" fill="white" />
+    
+    <text x="0" y="0" font-size="18" fill="white" text-anchor="middle" class="label">PROTEOMICS</text>
+  </g>
+  
+  <!-- Layer 4: Metabolomics -->
+  <g class="omic-layer delay-4" transform="translate(200, 350)">
+    <ellipse cx="0" cy="0" rx="100" ry="60" fill="url(#omic-gradient-4)" opacity="0.8" />
+    
+    <!-- Metabolite Network Representation -->
+    <g class="rotate-element">
+      <circle cx="-30" cy="0" r="8" fill="white" opacity="0.8" />
+      <circle cx="0" cy="-20" r="6" fill="white" opacity="0.8" />
+      <circle cx="30" cy="10" r="7" fill="white" opacity="0.8" />
+      <circle cx="10" cy="25" r="5" fill="white" opacity="0.8" />
+      <circle cx="-20" cy="-15" r="4" fill="white" opacity="0.8" />
+      
+      <line x1="-30" y1="0" x2="0" y2="-20" stroke="white" stroke-width="1" />
+      <line x1="0" y1="-20" x2="30" y2="10" stroke="white" stroke-width="1" />
+      <line x1="30" y1="10" x2="10" y2="25" stroke="white" stroke-width="1" />
+      <line x1="10" y1="25" x2="-30" y2="0" stroke="white" stroke-width="1" />
+      <line x1="-20" y1="-15" x2="-30" y2="0" stroke="white" stroke-width="1" />
+      <line x1="-20" y1="-15" x2="0" y2="-20" stroke="white" stroke-width="1" />
+    </g>
+    
+    <!-- Data points -->
+    <circle class="data-point delay-4" cx="-60" cy="-15" r="4" fill="white" />
+    <circle class="data-point delay-5" cx="-40" cy="25" r="4" fill="white" />
+    <circle class="data-point delay-1" cx="0" cy="-30" r="4" fill="white" />
+    <circle class="data-point delay-2" cx="30" cy="30" r="4" fill="white" />
+    <circle class="data-point delay-3" cx="60" cy="-5" r="4" fill="white" />
+    
+    <text x="0" y="0" font-size="18" fill="white" text-anchor="middle" class="label">METABOLOMICS</text>
+  </g>
+  
+  <!-- Connection Lines to Center -->
+  <g>
+    <line x1="200" y1="150" x2="400" y2="250" stroke="rgba(255,255,255,0.6)" stroke-width="3" 
+          class="connection-line grow-path" />
+    <line x1="600" y1="150" x2="400" y2="250" stroke="rgba(255,255,255,0.6)" stroke-width="3" 
+          class="connection-line grow-path delay-1" />
+    <line x1="600" y1="350" x2="400" y2="250" stroke="rgba(255,255,255,0.6)" stroke-width="3" 
+          class="connection-line grow-path delay-2" />
+    <line x1="200" y1="350" x2="400" y2="250" stroke="rgba(255,255,255,0.6)" stroke-width="3" 
+          class="connection-line grow-path delay-3" />
+  </g>
+  
+  <!-- Data flow visualization -->
+  <g>
+    <circle class="data-point" cx="220" cy="170" r="4" fill="#ff9068">
+      <animate attributeName="cx" values="220;380" dur="3s" repeatCount="indefinite" />
+      <animate attributeName="cy" values="170;240" dur="3s" repeatCount="indefinite" />
+    </circle>
+    
+    <circle class="data-point" cx="580" cy="170" r="4" fill="#6dd5ed">
+      <animate attributeName="cx" values="580;420" dur="4s" repeatCount="indefinite" />
+      <animate attributeName="cy" values="170;240" dur="4s" repeatCount="indefinite" />
+    </circle>
+    
+    <circle class="data-point" cx="580" cy="330" r="4" fill="#38ef7d">
+      <animate attributeName="cx" values="580;420" dur="3.5s" repeatCount="indefinite" />
+      <animate attributeName="cy" values="330;260" dur="3.5s" repeatCount="indefinite" />
+    </circle>
+    
+    <circle class="data-point" cx="220" cy="330" r="4" fill="#cf8bf3">
+      <animate attributeName="cx" values="220;380" dur="4.5s" repeatCount="indefinite" />
+      <animate attributeName="cy" values="330;260" dur="4.5s" repeatCount="indefinite" />
+    </circle>
+  </g>
+  
+  <!-- Title -->
+  <text x="400" y="50" font-size="24" fill="white" text-anchor="middle" class="label">
+    Multi-Omics Integration Framework
+  </text>
+  <text x="400" y="75" font-size="16" fill="rgba(255,255,255,0.8)" text-anchor="middle" class="label">
+    Brain-Ear Axis Research Platform
+  </text>
+  
+  <!-- Legend -->
+  <g transform="translate(650, 430)">
+    <rect x="0" y="0" width="130" height="60" rx="5" fill="rgba(0,0,0,0.5)" />
+    <circle cx="15" cy="15" r="6" fill="url(#omic-gradient-1)" />
+    <text x="30" y="18" font-size="10" fill="white" class="label">Genomics</text>
+    <circle cx="15" cy="30" r="6" fill="url(#omic-gradient-2)" />
+    <text x="30" y="33" font-size="10" fill="white" class="label">Transcriptomics</text>
+    <circle cx="15" cy="45" r="6" fill="url(#omic-gradient-3)" />
+    <text x="30" y="48" font-size="10" fill="white" class="label">Proteomics</text>
+    <circle cx="15" cy="60" r="6" fill="url(#omic-gradient-4)" />
+    <text x="30" y="63" font-size="10" fill="white" class="label">Metabolomics</text>
+  </g>
+</svg>
