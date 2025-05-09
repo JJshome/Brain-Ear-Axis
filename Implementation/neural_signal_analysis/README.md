@@ -2,6 +2,8 @@
 
 This module implements the neural signal analysis component of the Brain-Ear Axis Analysis System. It focuses on analyzing brain activity in response to auditory stimuli to understand the functional connections between the brain and ear.
 
+![Neural Signal Analysis](https://raw.githubusercontent.com/JJshome/Brain-Ear-Axis/main/examples/connectivity_visualization.svg)
+
 ## Components
 
 ### 1. Auditory Stimulus Presentation Module (310)
