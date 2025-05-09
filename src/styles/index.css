@@ -1,0 +1,226 @@
+/**
+ * Brain-Ear Axis Platform Styles
+ * 
+ * Global styles for the Brain-Ear Axis platform UI components
+ */
+
+:root {
+  /* Color palette */
+  --primary: #4A90E2;
+  --primary-light: #81B3F3;
+  --primary-dark: #2E67B2;
+  
+  --neural: #E41A1C;
+  --neural-light: #F47C7D;
+  --neural-dark: #B60A0B;
+  
+  --microbiome: #4DAF4A;
+  --microbiome-light: #8AD087;
+  --microbiome-dark: #2D7A2A;
+  
+  --auditory: #984EA3;
+  --auditory-light: #C28BCB;
+  --auditory-dark: #6A2974;
+  
+  --light-gray: #F8F9FA;
+  --gray: #DEE2E6;
+  --dark-gray: #495057;
+  
+  /* Shadows */
+  --shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  --shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+  
+  /* Font sizes */
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.5rem;
+  --fs-xxl: 2rem;
+  
+  /* Border radius */
+  --border-radius: 0.375rem;
+  --border-radius-lg: 0.5rem;
+  --border-radius-sm: 0.25rem;
+}
+
+/* Base styles */
+body {
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+  background-color: #F5F7FA;
+  color: #212529;
+  line-height: 1.5;
+}
+
+/* Card customization */
+.card {
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.3s ease;
+  border: none;
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: var(--shadow);
+}
+
+.card-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  background-color: #fff;
+  padding: 1rem 1.25rem;
+  font-weight: 500;
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+/* Visualization containers */
+.visualization-container {
+  position: relative;
+  background-color: #fff;
+  border-radius: var(--border-radius);
+}
+
+/* Network visualization */
+.connectivity-network .network-container {
+  width: 100%;
+  border: 1px solid var(--gray);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.connectivity-network .legend {
+  font-size: var(--fs-sm);
+  padding: 0.5rem;
+}
+
+.connectivity-network .legend-color {
+  display: inline-block;
+  width: 1rem;
+  height: 0.5rem;
+  margin-right: 0.25rem;
+}
+
+/* Time series visualization */
+.time-series-visualization .tooltip {
+  position: absolute;
+  background-color: white;
+  border: 1px solid var(--gray);
+  border-radius: var(--border-radius-sm);
+  padding: 0.5rem;
+  pointer-events: none;
+  box-shadow: var(--shadow-sm);
+  font-size: var(--fs-sm);
+  z-index: 1000;
+}
+
+.time-series-visualization .channel-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+
+/* Correlation matrix */
+.correlation-matrix .matrix-container {
+  width: 100%;
+  border: 1px solid var(--gray);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+/* Collaboration panel */
+.collaboration-panel {
+  height: 100%;
+}
+
+.collaboration-panel .chat-messages {
+  height: 300px;
+  overflow-y: auto;
+  border: 1px solid var(--gray);
+  border-radius: var(--border-radius-sm);
+  padding: 0.5rem;
+}
+
+.collaboration-panel .message {
+  margin-bottom: 0.75rem;
+  padding: 0.5rem;
+  border-radius: var(--border-radius-sm);
+}
+
+.collaboration-panel .system-message {
+  background-color: var(--light-gray);
+  font-style: italic;
+  text-align: center;
+  font-size: var(--fs-sm);
+}
+
+.collaboration-panel .own-message {
+  background-color: #e3f2fd;
+  margin-left: 1rem;
+}
+
+.collaboration-panel .other-message {
+  background-color: var(--light-gray);
+  margin-right: 1rem;
+}
+
+/* Results summary */
+.results-summary .card-header.bg-primary {
+  background-color: var(--neural) !important;
+}
+
+.results-summary .card-header.bg-success {
+  background-color: var(--microbiome) !important;
+}
+
+.results-summary .card-header.bg-info {
+  background-color: var(--auditory) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1rem;
+  }
+  
+  .connectivity-network .legend {
+    flex-direction: column;
+  }
+  
+  .time-series-visualization .controls {
+    flex-direction: column;
+  }
+}
+
+/* Dashboard layout */
+.brain-ear-dashboard {
+  padding: 1rem;
+}
+
+/* Utility classes */
+.text-neural {
+  color: var(--neural);
+}
+
+.text-microbiome {
+  color: var(--microbiome);
+}
+
+.text-auditory {
+  color: var(--auditory);
+}
+
+.bg-neural {
+  background-color: var(--neural);
+}
+
+.bg-microbiome {
+  background-color: var(--microbiome);
+}
+
+.bg-auditory {
+  background-color: var(--auditory);
+}
