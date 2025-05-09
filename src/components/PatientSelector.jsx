@@ -1,69 +1,33 @@
 /**
  * PatientSelector.jsx
  * 
- * A component for selecting patients from a list with search and filtering capabilities.
+ * Component for selecting patients from a dropdown list
  */
 
-import React, { useState } from 'react';
-import { Card, Form, ListGroup, Row, Col, Badge } from 'react-bootstrap';
+import React from 'react';
+import { Form } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 const PatientSelector = ({ patients, selectedPatient, onPatientChange }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  
-  // Filter patients based on search term
-  const filteredPatients = patients.filter(patient => 
-    patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    patient.id.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const handleChange = (e) => {
+    onPatientChange(e.target.value);
+  };
   
   return (
-    <Card className="h-100">
-      <Card.Header>
-        <h5 className="mb-0">Select Patient</h5>
-      </Card.Header>
-      <Card.Body>
-        <Form.Group className="mb-3">
-          <Form.Control
-            type="text"
-            placeholder="Search patients..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </Form.Group>
-        
-        {filteredPatients.length === 0 ? (
-          <div className="text-center py-4 text-muted">
-            <p>No patients found</p>
-          </div>
-        ) : (
-          <ListGroup>
-            {filteredPatients.map(patient => (
-              <ListGroup.Item 
-                key={patient.id}
-                action
-                active={selectedPatient && selectedPatient.id === patient.id}
-                onClick={() => onPatientChange(patient.id)}
-              >
-                <Row>
-                  <Col xs={8}>
-                    <div className="fw-bold">{patient.name}</div>
-                    <div className="small text-muted">ID: {patient.id}</div>
-                  </Col>
-                  <Col xs={4} className="text-end">
-                    <Badge bg="secondary">{patient.gender}</Badge>
-                    <div className="small mt-1">{patient.age} years</div>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-            ))}
-          </ListGroup>
-        )}
-      </Card.Body>
-      <Card.Footer className="text-muted small">
-        {filteredPatients.length} patients
-      </Card.Footer>
-    </Card>
+    <Form.Group className="mb-3">
+      <Form.Label>Select Patient</Form.Label>
+      <Form.Select 
+        value={selectedPatient?.id || ''} 
+        onChange={handleChange}
+      >
+        <option value="" disabled>Select a patient...</option>
+        {patients.map(patient => (
+          <option key={patient.id} value={patient.id}>
+            {patient.name} ({patient.age}y, {patient.gender})
+          </option>
+        ))}
+      </Form.Select>
+    </Form.Group>
   );
 };
 
@@ -72,15 +36,15 @@ PatientSelector.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      age: PropTypes.number,
-      gender: PropTypes.string
+      age: PropTypes.number.isRequired,
+      gender: PropTypes.string.isRequired
     })
   ).isRequired,
   selectedPatient: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    age: PropTypes.number,
-    gender: PropTypes.string
+    age: PropTypes.number.isRequired,
+    gender: PropTypes.string.isRequired
   }),
   onPatientChange: PropTypes.func.isRequired
 };
