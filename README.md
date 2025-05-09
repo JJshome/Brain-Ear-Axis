@@ -1,7 +1,7 @@
 # 🧠👂 Brain-Ear Axis Research Platform
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/JJshome/Brain-Ear-Axis/main/docs/assets/logo.png" width="600" alt="Brain-Ear Axis Logo">
+  <img src="https://raw.githubusercontent.com/JJshome/Brain-Ear-Axis/main/docs/assets/logo.svg" width="600" alt="Brain-Ear Axis Logo">
 </div>
 
 ## 📊 Multi-Modal Analysis Framework for Brain-Ear Interactions
