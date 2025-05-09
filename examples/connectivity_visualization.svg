@@ -1,0 +1,314 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @keyframes pulse {
+      0% { r: 5; opacity: 0.7; }
+      50% { r: 8; opacity: 1; }
+      100% { r: 5; opacity: 0.7; }
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-5px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    @keyframes glow {
+      0% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.7)); }
+      50% { filter: drop-shadow(0 0 8px rgba(255,255,255,0.9)); }
+      100% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.7)); }
+    }
+    
+    @keyframes connection-flow {
+      0% { stroke-dashoffset: 1000; }
+      100% { stroke-dashoffset: 0; }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes brainPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+      100% { transform: scale(1); }
+    }
+    
+    @keyframes colorChange {
+      0% { stroke: #ff9a9e; }
+      25% { stroke: #fad0c4; }
+      50% { stroke: #a1c4fd; }
+      75% { stroke: #c2e9fb; }
+      100% { stroke: #ff9a9e; }
+    }
+    
+    .node {
+      animation: pulse 4s infinite alternate, glow 4s infinite alternate;
+    }
+    
+    .node-group {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .connection {
+      stroke-dasharray: 10;
+      animation: connection-flow 20s linear infinite, colorChange 15s infinite;
+    }
+    
+    .main-connection {
+      stroke-dasharray: 10;
+      animation: connection-flow 10s linear infinite;
+    }
+    
+    .fade-in {
+      animation: fadeIn 2s;
+    }
+    
+    .brain-pulse {
+      animation: brainPulse 3s infinite ease-in-out;
+      transform-origin: center;
+    }
+    
+    .label {
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+    }
+    
+    /* Different animation timing for variety */
+    .delay-1 { animation-delay: 0.5s; }
+    .delay-2 { animation-delay: 1s; }
+    .delay-3 { animation-delay: 1.5s; }
+    .delay-4 { animation-delay: 2s; }
+    .delay-5 { animation-delay: 2.5s; }
+  </style>
+  
+  <!-- Background with gradient -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#09203f" />
+      <stop offset="100%" stop-color="#537895" />
+    </linearGradient>
+    
+    <radialGradient id="node-gradient-1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" stop-color="#ff9a9e" />
+      <stop offset="100%" stop-color="#fad0c4" />
+    </radialGradient>
+    
+    <radialGradient id="node-gradient-2" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" stop-color="#a1c4fd" />
+      <stop offset="100%" stop-color="#c2e9fb" />
+    </radialGradient>
+    
+    <radialGradient id="node-gradient-3" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" stop-color="#84fab0" />
+      <stop offset="100%" stop-color="#8fd3f4" />
+    </radialGradient>
+    
+    <filter id="glow-filter" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    
+    <!-- Brain shape clip path -->
+    <clipPath id="brain-clip">
+      <path d="M380,160 C430,120 470,140 490,170 C510,140 550,120 600,160 
+               C650,200 650,260 600,300 C550,340 510,320 490,290 
+               C470,320 430,340 380,300 C330,260 330,200 380,160 Z" />
+    </clipPath>
+    
+    <!-- Ear shape clip path -->
+    <clipPath id="ear-clip">
+      <path d="M180,200 C160,150 170,120 200,100 C230,80 260,90 280,110 
+               C300,130 310,160 300,200 C290,240 260,270 220,260 
+               C180,250 160,250 180,200 Z" />
+    </clipPath>
+  </defs>
+  
+  <rect width="100%" height="100%" fill="url(#bg-gradient)" />
+  
+  <!-- Background neural network pattern -->
+  <g opacity="0.1">
+    <path d="M0,100 L800,400 M0,200 L800,300 M0,300 L800,200 M0,400 L800,100
+             M100,0 L400,500 M200,0 L300,500 M300,0 L200,500 M400,0 L100,500
+             M500,0 L700,500 M600,0 L600,500 M700,0 L500,500" 
+          stroke="white" stroke-width="1" />
+  </g>
+  
+  <!-- Brain Region -->
+  <g transform="translate(490, 230)" class="brain-pulse">
+    <!-- Brain outline -->
+    <path d="M-110,-70 C-60,-110 10,-90 30,-60 C50,-90 90,-110 140,-70 
+             C190,-30 190,30 140,70 C90,110 50,90 30,60 
+             C10,90 -60,110 -110,70 C-160,30 -160,-30 -110,-70 Z" 
+          stroke="white" stroke-width="2" fill="rgba(161, 196, 253, 0.2)" />
+    
+    <!-- Brain internal structure -->
+    <path d="M-60,-30 C-40,-50 0,-40 20,-20 C40,-40 60,-50 80,-30 
+             C100,-10 100,20 80,40 C60,60 40,50 20,30 
+             C0,50 -40,60 -60,40 C-80,20 -80,-10 -60,-30 Z" 
+          stroke="white" stroke-width="1" fill="none" />
+    
+    <path d="M30,-60 C30,-20 30,20 30,60" stroke="white" stroke-width="1" fill="none" />
+    
+    <text x="0" y="0" font-size="22" fill="white" text-anchor="middle" class="label fade-in">BRAIN</text>
+  </g>
+  
+  <!-- Ear Region -->
+  <g transform="translate(200, 180)" class="node-group delay-2">
+    <!-- Ear outline -->
+    <path d="M-20,20 C-40,-30 -30,-60 0,-80 C30,-100 60,-90 80,-70 
+             C100,-50 110,-20 100,20 C90,60 60,90 20,80 
+             C-20,70 -40,70 -20,20 Z" 
+          stroke="white" stroke-width="2" fill="rgba(255, 154, 158, 0.2)" />
+    
+    <!-- Ear internal structure -->
+    <path d="M0,-60 C10,-50 20,-40 20,-20 C20,0 10,20 0,30 C-10,20 -20,0 -20,-20 C-20,-40 -10,-50 0,-60 Z" 
+          stroke="white" stroke-width="1" fill="none" />
+    
+    <path d="M30,-50 C40,-40 50,-30 50,-10 C50,10 40,30 30,40 C20,30 10,10 10,-10 C10,-30 20,-40 30,-50 Z" 
+          stroke="white" stroke-width="1" fill="none" />
+    
+    <text x="30" y="0" font-size="22" fill="white" text-anchor="middle" class="label fade-in">EAR</text>
+  </g>
+  
+  <!-- Connectivity Nodes in Brain -->
+  <g transform="translate(490, 230)">
+    <!-- Auditory Cortex -->
+    <g class="node-group delay-1">
+      <circle cx="-50" cy="0" r="12" fill="url(#node-gradient-2)" class="node" />
+      <text x="-50" y="25" font-size="10" fill="white" text-anchor="middle" class="label fade-in">Auditory Cortex</text>
+    </g>
+    
+    <!-- Prefrontal Cortex -->
+    <g class="node-group delay-2">
+      <circle cx="50" cy="-40" r="12" fill="url(#node-gradient-2)" class="node" />
+      <text x="50" y="-15" font-size="10" fill="white" text-anchor="middle" class="label fade-in">Prefrontal Cortex</text>
+    </g>
+    
+    <!-- Temporal Lobe -->
+    <g class="node-group delay-3">
+      <circle cx="70" cy="30" r="12" fill="url(#node-gradient-2)" class="node" />
+      <text x="70" y="55" font-size="10" fill="white" text-anchor="middle" class="label fade-in">Temporal Lobe</text>
+    </g>
+    
+    <!-- Limbic System -->
+    <g class="node-group delay-4">
+      <circle cx="-40" cy="-50" r="12" fill="url(#node-gradient-2)" class="node" />
+      <text x="-40" y="-25" font-size="10" fill="white" text-anchor="middle" class="label fade-in">Limbic System</text>
+    </g>
+    
+    <!-- Cerebellum -->
+    <g class="node-group delay-5">
+      <circle cx="-70" cy="40" r="12" fill="url(#node-gradient-2)" class="node" />
+      <text x="-70" y="65" font-size="10" fill="white" text-anchor="middle" class="label fade-in">Cerebellum</text>
+    </g>
+    
+    <!-- Brain internal connections -->
+    <g>
+      <path d="M-50,0 C-30,-20 30,-30 50,-40" stroke="rgba(255,255,255,0.6)" stroke-width="2" class="connection delay-1" />
+      <path d="M50,-40 C60,-10 70,0 70,30" stroke="rgba(255,255,255,0.6)" stroke-width="2" class="connection delay-2" />
+      <path d="M70,30 C40,50 -20,60 -70,40" stroke="rgba(255,255,255,0.6)" stroke-width="2" class="connection delay-3" />
+      <path d="M-70,40 C-80,10 -70,-10 -50,0" stroke="rgba(255,255,255,0.6)" stroke-width="2" class="connection delay-4" />
+      <path d="M-50,0 C-30,-40 -20,-50 -40,-50" stroke="rgba(255,255,255,0.6)" stroke-width="2" class="connection delay-5" />
+      <path d="M-40,-50 C0,-60 30,-50 50,-40" stroke="rgba(255,255,255,0.6)" stroke-width="2" class="connection delay-1" />
+    </g>
+  </g>
+  
+  <!-- Connectivity Nodes in Ear -->
+  <g transform="translate(200, 180)">
+    <!-- Cochlea -->
+    <g class="node-group delay-3">
+      <circle cx="0" cy="0" r="12" fill="url(#node-gradient-1)" class="node" />
+      <text x="0" y="25" font-size="10" fill="white" text-anchor="middle" class="label fade-in">Cochlea</text>
+    </g>
+    
+    <!-- Auditory Nerve -->
+    <g class="node-group delay-4">
+      <circle cx="50" cy="-20" r="12" fill="url(#node-gradient-1)" class="node" />
+      <text x="50" y="5" font-size="10" fill="white" text-anchor="middle" class="label fade-in">Auditory Nerve</text>
+    </g>
+    
+    <!-- Vestibular System -->
+    <g class="node-group delay-5">
+      <circle cx="-30" cy="-40" r="12" fill="url(#node-gradient-1)" class="node" />
+      <text x="-30" y="-15" font-size="10" fill="white" text-anchor="middle" class="label fade-in">Vestibular System</text>
+    </g>
+    
+    <!-- Ear internal connections -->
+    <g>
+      <path d="M0,0 C20,-10 40,-15 50,-20" stroke="rgba(255,255,255,0.6)" stroke-width="2" class="connection delay-2" />
+      <path d="M0,0 C-10,-20 -20,-30 -30,-40" stroke="rgba(255,255,255,0.6)" stroke-width="2" class="connection delay-3" />
+      <path d="M-30,-40 C0,-50 30,-40 50,-20" stroke="rgba(255,255,255,0.6)" stroke-width="2" class="connection delay-4" />
+    </g>
+  </g>
+  
+  <!-- Brain-Ear Connections -->
+  <g>
+    <!-- Primary Connection -->
+    <path d="M250,160 C300,120 350,120 400,140 C450,160 450,180 440,230" 
+          stroke="rgba(255,255,255,0.8)" stroke-width="3" class="main-connection" />
+    
+    <!-- Secondary Connections -->
+    <path d="M170,140 C220,100 300,80 400,100 C450,110 470,170 450,230" 
+          stroke="rgba(255,255,255,0.4)" stroke-width="2" class="connection delay-2" />
+    
+    <path d="M230,200 C280,220 350,240 400,230 C450,220 470,200 520,230" 
+          stroke="rgba(255,255,255,0.4)" stroke-width="2" class="connection delay-3" />
+  </g>
+  
+  <!-- Animated Signal Pulses on Connections -->
+  <g>
+    <circle class="node" cx="250" cy="160" r="3" fill="white">
+      <animate attributeName="cx" values="250;440" dur="4s" repeatCount="indefinite" />
+      <animate attributeName="cy" values="160;230" dur="4s" repeatCount="indefinite" />
+    </circle>
+    
+    <circle class="node delay-2" cx="170" cy="140" r="3" fill="white">
+      <animate attributeName="cx" values="170;450" dur="5s" repeatCount="indefinite" />
+      <animate attributeName="cy" values="140;230" dur="5s" repeatCount="indefinite" />
+    </circle>
+    
+    <circle class="node delay-3" cx="230" cy="200" r="3" fill="white">
+      <animate attributeName="cx" values="230;520" dur="4.5s" repeatCount="indefinite" />
+      <animate attributeName="cy" values="200;230" dur="4.5s" repeatCount="indefinite" />
+    </circle>
+  </g>
+  
+  <!-- Title -->
+  <text x="400" y="50" font-size="24" fill="white" text-anchor="middle" class="label fade-in">
+    Brain-Ear Connectivity Network
+  </text>
+  <text x="400" y="80" font-size="16" fill="rgba(255,255,255,0.8)" text-anchor="middle" class="label fade-in">
+    Neural Pathways and Signal Processing
+  </text>
+  
+  <!-- Data Panel -->
+  <g transform="translate(400, 420)">
+    <rect x="-200" y="-30" width="400" height="60" rx="10" fill="rgba(0,0,0,0.3)" stroke="white" stroke-width="1" />
+    
+    <!-- Signal Waves -->
+    <path d="M-180,0 C-170,-20 -160,20 -150,0 C-140,-20 -130,20 -120,0 C-110,-20 -100,20 -90,0" 
+          stroke="#ff9a9e" stroke-width="2" fill="none" />
+    
+    <path d="M-60,0 C-50,-10 -40,10 -30,0 C-20,-10 -10,10 0,0 C10,-10 20,10 30,0" 
+          stroke="#a1c4fd" stroke-width="2" fill="none" />
+    
+    <path d="M60,0 C70,-5 80,5 90,0 C100,-5 110,5 120,0 C130,-5 140,5 150,0" 
+          stroke="#84fab0" stroke-width="2" fill="none" />
+    
+    <text x="-135" y="20" font-size="10" fill="white" text-anchor="middle" class="label fade-in">Auditory Signal</text>
+    <text x="-15" y="20" font-size="10" fill="white" text-anchor="middle" class="label fade-in">Neural Response</text>
+    <text x="105" y="20" font-size="10" fill="white" text-anchor="middle" class="label fade-in">Cognitive Processing</text>
+  </g>
+  
+  <!-- Legend -->
+  <g transform="translate(100, 420)">
+    <rect x="-80" y="-30" width="160" height="60" rx="5" fill="rgba(0,0,0,0.3)" />
+    <circle cx="-60" cy="-15" r="6" fill="url(#node-gradient-1)" />
+    <text x="-45" y="-12" font-size="10" fill="white" class="label fade-in">Ear Region</text>
+    <circle cx="-60" cy="5" r="6" fill="url(#node-gradient-2)" />
+    <text x="-45" y="8" font-size="10" fill="white" class="label fade-in">Brain Region</text>
+    <line x1="-60" y1="25" x2="-40" y2="25" stroke="white" stroke-width="2" class="connection" />
+    <text x="-25" y="28" font-size="10" fill="white" class="label fade-in">Connectivity</text>
+  </g>
+</svg>
