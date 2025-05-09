@@ -88,230 +88,240 @@ const mockApiService = {
   },
   
   getConnectivityData: (patientId) => {
-    // Generate mock connectivity network data
+    // Generate mock connectivity data
     const regions = [
-      'Frontal_L', 'Frontal_R', 
       'Temporal_L', 'Temporal_R', 
+      'Frontal_L', 'Frontal_R', 
       'Parietal_L', 'Parietal_R', 
       'Occipital_L', 'Occipital_R',
-      'Cerebellum', 'Hippocampus',
-      'Auditory_Cortex_L', 'Auditory_Cortex_R'
+      'Insula_L', 'Insula_R',
+      'Cingulate_Anterior', 'Cingulate_Posterior'
     ];
     
-    const nodes = regions.map(region => ({
+    // Create nodes
+    const nodes = regions.map((region, i) => ({
       id: region,
       name: region.replace('_', ' '),
-      weight: Math.random() * 5 + 1,
-      color: region.includes('Auditory') ? '#ff7f0e' : '#1f77b4'
+      weight: Math.random() * 3 + 1,
+      color: region.includes('Temporal') ? '#e41a1c' : 
+             region.includes('Frontal') ? '#377eb8' : 
+             region.includes('Parietal') ? '#4daf4a' : 
+             region.includes('Occipital') ? '#984ea3' :
+             region.includes('Insula') ? '#ff7f00' : 
+             '#a65628'
     }));
     
+    // Create links (connections between regions)
     const links = [];
-    
-    // Create links with random correlation values
     for (let i = 0; i < regions.length; i++) {
       for (let j = i + 1; j < regions.length; j++) {
-        // Generate a correlation value between -1 and 1
-        // Make auditory regions have stronger connections
-        let value;
-        if (regions[i].includes('Auditory') || regions[j].includes('Auditory')) {
-          value = Math.random() * 1.2 - 0.2; // -0.2 to 1.0, biased toward positive
-        } else {
-          value = Math.random() * 2 - 1; // -1 to 1, uniform
-        }
+        // Create connections with different strengths
+        // Higher probability of connection for regions in the same hemisphere or area
+        const sameHemisphere = 
+          (regions[i].includes('_L') && regions[j].includes('_L')) || 
+          (regions[i].includes('_R') && regions[j].includes('_R'));
         
-        links.push({
-          source: regions[i],
-          target: regions[j],
-          value: parseFloat(value.toFixed(3))
-        });
+        const sameArea = 
+          regions[i].split('_')[0] === regions[j].split('_')[0];
+        
+        const connectionProbability = sameArea ? 0.9 : sameHemisphere ? 0.7 : 0.3;
+        
+        if (Math.random() < connectionProbability) {
+          // Create connection with random strength
+          links.push({
+            source: regions[i],
+            target: regions[j],
+            value: (Math.random() * 2 - 1) * (sameArea ? 0.8 : 0.5)  // Stronger for same area
+          });
+        }
       }
     }
     
-    return Promise.resolve({
-      nodes,
-      links,
-      metadata: {
-        analysisDate: '2025-03-02',
-        method: 'Phase Locking Value',
-        frequencyBand: 'Alpha (8-12 Hz)'
-      }
-    });
+    return Promise.resolve({ nodes, links });
   },
   
   getCorrelationData: (patientId) => {
     // Generate mock correlation data between neural, microbiome, and auditory features
     
-    // Define features
-    const neuralFeatures = ['Alpha_Power', 'Beta_Power', 'Theta_Power', 'Delta_Power', 'Gamma_Power'];
-    const microbiomeFeatures = ['Akkermansia', 'Bacteroides', 'Bifidobacterium', 'Lactobacillus', 'Prevotella'];
-    const auditoryFeatures = ['Hearing_Threshold', 'Speech_Recognition', 'Auditory_ERP_P300', 'ABR_Wave_I', 'ABR_Wave_V'];
-    
-    const allFeatures = [
-      ...neuralFeatures.map(name => ({ name, modality: 'neural', cluster: 1 })),
-      ...microbiomeFeatures.map(name => ({ name, modality: 'microbiome', cluster: 2 })),
-      ...auditoryFeatures.map(name => ({ name, modality: 'auditory', cluster: 3 }))
+    // Define features from different modalities
+    const features = [
+      // Neural features
+      { name: 'Alpha_Temporal_L', modality: 'neural', description: 'Alpha power in left temporal region', cluster: 1 },
+      { name: 'Alpha_Temporal_R', modality: 'neural', description: 'Alpha power in right temporal region', cluster: 1 },
+      { name: 'Beta_Frontal_L', modality: 'neural', description: 'Beta power in left frontal region', cluster: 2 },
+      { name: 'Beta_Frontal_R', modality: 'neural', description: 'Beta power in right frontal region', cluster: 2 },
+      { name: 'Theta_Frontal', modality: 'neural', description: 'Theta power in frontal region', cluster: 3 },
+      { name: 'Gamma_Temporal', modality: 'neural', description: 'Gamma power in temporal region', cluster: 3 },
+      
+      // Microbiome features
+      { name: 'Akkermansia', modality: 'microbiome', description: 'Abundance of Akkermansia muciniphila', cluster: 4 },
+      { name: 'Bacteroides', modality: 'microbiome', description: 'Abundance of Bacteroides fragilis', cluster: 4 },
+      { name: 'Bifidobacterium', modality: 'microbiome', description: 'Abundance of Bifidobacterium longum', cluster: 4 },
+      { name: 'Shannon_Index', modality: 'microbiome', description: 'Shannon diversity index', cluster: 5 },
+      { name: 'Firmicutes_Bacteroidetes', modality: 'microbiome', description: 'Firmicutes to Bacteroidetes ratio', cluster: 5 },
+      
+      // Auditory features
+      { name: 'PTA_Left', modality: 'auditory', description: 'Pure Tone Average, left ear', cluster: 6 },
+      { name: 'PTA_Right', modality: 'auditory', description: 'Pure Tone Average, right ear', cluster: 6 },
+      { name: 'SRT_Left', modality: 'auditory', description: 'Speech Reception Threshold, left ear', cluster: 6 },
+      { name: 'SRT_Right', modality: 'auditory', description: 'Speech Reception Threshold, right ear', cluster: 6 },
+      { name: 'ABR_Wave_I', modality: 'auditory', description: 'Auditory Brainstem Response, Wave I', cluster: 7 },
+      { name: 'ABR_Wave_V', modality: 'auditory', description: 'Auditory Brainstem Response, Wave V', cluster: 7 }
     ];
     
-    // Generate correlations
+    // Generate correlations between features
     const correlations = [];
     
-    // Add correlations between all pairs of features
-    for (let i = 0; i < allFeatures.length; i++) {
-      for (let j = i + 1; j < allFeatures.length; j++) {
-        // Generate correlation value
-        // Bias for stronger correlations within same modality
-        let value;
+    for (let i = 0; i < features.length; i++) {
+      for (let j = i + 1; j < features.length; j++) {
+        // Higher probability of correlation for features in the same modality or cluster
+        const sameModality = features[i].modality === features[j].modality;
+        const sameCluster = features[i].cluster === features[j].cluster;
         
-        if (allFeatures[i].modality === allFeatures[j].modality) {
-          value = Math.random() * 0.8 + 0.2; // 0.2 to 1.0, strong positive bias
-        } 
-        // Bias for stronger neural-auditory correlations
-        else if (
-          (allFeatures[i].modality === 'neural' && allFeatures[j].modality === 'auditory') ||
-          (allFeatures[i].modality === 'auditory' && allFeatures[j].modality === 'neural')
-        ) {
-          value = Math.random() * 0.7 + 0.1; // 0.1 to 0.8, moderate positive bias
-        }
-        // Bias for neural-microbiome correlations
-        else if (
-          (allFeatures[i].modality === 'neural' && allFeatures[j].modality === 'microbiome') ||
-          (allFeatures[i].modality === 'microbiome' && allFeatures[j].modality === 'neural')
-        ) {
-          value = Math.random() * 0.6 - 0.3; // -0.3 to 0.3, both positive and negative
-        }
-        // Bias for microbiome-auditory correlations
-        else {
-          value = Math.random() * 0.5 - 0.2; // -0.2 to 0.3, slight positive bias
-        }
+        const correlationProbability = sameCluster ? 0.9 : sameModality ? 0.7 : 0.4;
         
-        // Add p-value
-        const pvalue = Math.random() * 0.1;
-        
-        correlations.push({
-          source: allFeatures[i].name,
-          target: allFeatures[j].name,
-          value: parseFloat(value.toFixed(3)),
-          pvalue: parseFloat(pvalue.toFixed(3))
-        });
+        if (Math.random() < correlationProbability) {
+          // Create correlation with random value
+          const correlation = {
+            source: features[i].name,
+            target: features[j].name,
+            value: (Math.random() * 2 - 1) * (sameCluster ? 0.8 : sameModality ? 0.6 : 0.4),
+            pvalue: Math.random() * 0.1  // Small p-values for significant correlations
+          };
+          
+          correlations.push(correlation);
+        }
       }
     }
     
-    return Promise.resolve({
-      features: allFeatures,
-      correlations,
-      metadata: {
-        analysisDate: '2025-03-03',
-        method: 'Spearman Correlation',
-        multipleTestingCorrection: 'FDR'
-      }
-    });
+    return Promise.resolve({ features, correlations });
   },
   
   getAnalysisResults: (patientId) => {
     // Generate mock analysis results
     return Promise.resolve({
+      status: 'completed',
+      date: '2025-03-05',
       summary: {
         neuralFindings: 'Increased alpha power in temporal regions',
-        microbiomeFindings: 'High abundance of Akkermansia muciniphila',
-        auditoryFindings: 'Mild high-frequency hearing loss',
-        correlationalFindings: 'Strong association between microbiome diversity and auditory processing'
-      },
-      statistics: {
-        neuralMetrics: {
-          alphaPower: { value: 8.3, percentile: 65, status: 'normal' },
-          betaPower: { value: 5.2, percentile: 45, status: 'normal' },
-          thetaPower: { value: 4.1, percentile: 40, status: 'normal' }
-        },
-        microbiomeMetrics: {
-          diversity: { value: 3.2, percentile: 75, status: 'high' },
-          firmicutesBacteroidetesRatio: { value: 1.8, percentile: 60, status: 'normal' }
-        },
-        auditoryMetrics: {
-          hearingThreshold: { value: 35, percentile: 30, status: 'mild_loss' },
-          speechRecognition: { value: 85, percentile: 50, status: 'normal' }
-        }
+        microbiomeFindings: 'Elevated Akkermansia abundance, associated with gut health',
+        auditoryFindings: 'Mild hearing loss in high frequencies',
+        correlations: [
+          'Strong correlation between Alpha_Temporal and ABR_Wave_V (r=0.76, p<0.01)',
+          'Moderate correlation between Akkermansia and Theta_Frontal (r=0.42, p<0.05)',
+          'Inverse correlation between PTA scores and Bifidobacterium (r=-0.38, p<0.05)'
+        ]
       },
       recommendations: [
-        'Continue monitoring hearing function',
-        'Consider probiotic supplementation',
-        'Follow-up in 6 months'
+        'Consider follow-up auditory testing in 3 months',
+        'Potential benefit from probiotics to support gut-brain axis',
+        'Recommend detailed audiological assessment'
       ]
     });
   },
   
   runAnalysis: (patientId, options) => {
-    // Mock running an analysis
-    return new Promise(resolve => {
+    // Simulate running an analysis
+    return new Promise((resolve) => {
       setTimeout(() => {
-        resolve(mockApiService.getAnalysisResults(patientId));
-      }, 2000); // Simulate a delay
+        resolve({
+          status: 'completed',
+          date: new Date().toISOString(),
+          summary: {
+            neuralFindings: 'Custom analysis found abnormal beta oscillations',
+            microbiomeFindings: 'Reduced diversity in gut microbiome composition',
+            auditoryFindings: 'Asymmetry in auditory processing between left and right',
+            correlations: [
+              'New significant correlation between Beta_Frontal and PTA scores (r=0.58, p<0.01)',
+              'Relationship between Shannon diversity and ABR latencies (r=-0.44, p<0.05)'
+            ]
+          },
+          recommendations: [
+            'Additional neuroimaging recommended',
+            'Consider auditory training exercises',
+            'Dietary modifications to improve gut microbiome diversity'
+          ]
+        });
+      }, 2000);  // Simulate 2 seconds of processing time
     });
   }
 };
 
-// Main dashboard component
+// Main Dashboard Component
 const BrainEarDashboard = () => {
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [patient, setPatient] = useState(null);
   const [patients, setPatients] = useState([]);
+  const [activeTab, setActiveTab] = useState('overview');
+  
+  // Data states
   const [neuralData, setNeuralData] = useState(null);
   const [microbiomeData, setMicrobiomeData] = useState(null);
   const [connectivityData, setConnectivityData] = useState(null);
   const [correlationData, setCorrelationData] = useState(null);
   const [analysisResults, setAnalysisResults] = useState(null);
-  const [activeTab, setActiveTab] = useState('overview');
-  const [error, setError] = useState(null);
   
-  // Load patient list on component mount
+  // Analysis state
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  
+  // Load patients on component mount
   useEffect(() => {
     const fetchPatients = async () => {
       try {
-        const response = await mockApiService.getPatients();
-        setPatients(response);
+        const patientsData = await mockApiService.getPatients();
+        setPatients(patientsData);
+        
         // Auto-select first patient
-        if (response.length > 0) {
-          setPatient(response[0]);
+        if (patientsData.length > 0) {
+          setPatient(patientsData[0]);
         }
-      } catch (error) {
-        setError('Error loading patients: ' + error.message);
+        
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to load patients data');
+        setLoading(false);
       }
     };
     
     fetchPatients();
   }, []);
   
-  // Load data when patient changes
+  // Load patient data when patient changes
   useEffect(() => {
     if (!patient) return;
     
-    const fetchData = async () => {
+    const fetchPatientData = async () => {
       setLoading(true);
-      setError(null);
-      
       try {
         // Fetch all data types in parallel
-        const [neuralResponse, microbiomeResponse, connectivityResponse, correlationResponse, resultsResponse] = 
-          await Promise.all([
-            mockApiService.getNeuralData(patient.id),
-            mockApiService.getMicrobiomeData(patient.id),
-            mockApiService.getConnectivityData(patient.id),
-            mockApiService.getCorrelationData(patient.id),
-            mockApiService.getAnalysisResults(patient.id)
-          ]);
+        const [
+          neuralResponse, 
+          microbiomeResponse, 
+          connectivityResponse, 
+          correlationResponse,
+          analysisResultsResponse
+        ] = await Promise.all([
+          mockApiService.getNeuralData(patient.id),
+          mockApiService.getMicrobiomeData(patient.id),
+          mockApiService.getConnectivityData(patient.id),
+          mockApiService.getCorrelationData(patient.id),
+          mockApiService.getAnalysisResults(patient.id)
+        ]);
         
         setNeuralData(neuralResponse);
         setMicrobiomeData(microbiomeResponse);
         setConnectivityData(connectivityResponse);
         setCorrelationData(correlationResponse);
-        setAnalysisResults(resultsResponse);
-      } catch (error) {
-        setError('Error loading data: ' + error.message);
-      } finally {
+        setAnalysisResults(analysisResultsResponse);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to load patient data');
         setLoading(false);
       }
     };
     
-    fetchData();
+    fetchPatientData();
   }, [patient]);
   
   // Handle patient change
@@ -320,239 +330,228 @@ const BrainEarDashboard = () => {
     setPatient(selectedPatient);
   };
   
-  // Handle analysis submission
-  const handleAnalysisSubmit = async (options) => {
+  // Run analysis
+  const handleRunAnalysis = async (options) => {
     if (!patient) return;
     
-    setLoading(true);
-    setError(null);
-    
+    setIsAnalyzing(true);
     try {
-      const response = await mockApiService.runAnalysis(patient.id, options);
-      setAnalysisResults(response);
-      // Switch to results tab
+      const results = await mockApiService.runAnalysis(patient.id, options);
+      setAnalysisResults(results);
       setActiveTab('results');
-    } catch (error) {
-      setError('Error running analysis: ' + error.message);
+    } catch (err) {
+      setError('Analysis failed');
     } finally {
-      setLoading(false);
+      setIsAnalyzing(false);
     }
   };
   
-  // Handle filter changes from collaboration panel
-  const handleCollaborationFilterChange = (filter) => {
-    // This would apply filters across the dashboard
-    console.log('Applying filter from collaboration:', filter);
+  // Handle collaboration events
+  const handleAnnotationAdd = (annotation) => {
+    // Would typically update the analysis results or add a marker in the visualizations
+    console.log('Annotation added:', annotation);
   };
   
   return (
-    <Container fluid className="py-4">
+    <Container fluid className="brain-ear-dashboard">
       <Row className="mb-4">
-        <Col>
-          <h1 className="display-5">Brain-Ear Axis Platform</h1>
-          <p className="lead">Integrated analysis of neural, microbiome, and auditory data</p>
+        <Col md={8}>
+          <h1 className="mb-3">Brain-Ear Axis Analysis Platform</h1>
         </Col>
-      </Row>
-      
-      {error && (
-        <Row className="mb-4">
-          <Col>
-            <Alert variant="danger" onClose={() => setError(null)} dismissible>
-              {error}
-            </Alert>
-          </Col>
-        </Row>
-      )}
-      
-      <Row className="mb-4">
-        <Col md={4}>
+        <Col md={4} className="text-end">
           <PatientSelector 
             patients={patients}
             selectedPatient={patient}
             onPatientChange={handlePatientChange}
           />
         </Col>
-        <Col md={8}>
-          <AnalysisControls 
-            onSubmit={handleAnalysisSubmit}
-            disabled={loading || !patient}
-          />
-        </Col>
       </Row>
       
+      {error && (
+        <Alert variant="danger" onClose={() => setError(null)} dismissible>
+          {error}
+        </Alert>
+      )}
+      
       {loading ? (
-        <Row>
-          <Col className="text-center py-5">
-            <div className="spinner-border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-            <p className="mt-3">Loading data...</p>
-          </Col>
-        </Row>
+        <div className="text-center my-5">
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+          <p className="mt-2">Loading data...</p>
+        </div>
       ) : patient ? (
         <Row>
           <Col md={9}>
-            <Card>
+            <Card className="mb-4">
               <Card.Header>
+                <div className="d-flex justify-content-between align-items-center">
+                  <h3 className="m-0">
+                    {patient.name} <small className="text-muted">{patient.age}y, {patient.gender}</small>
+                  </h3>
+                  <AnalysisControls 
+                    onSubmit={handleRunAnalysis}
+                    disabled={isAnalyzing}
+                    isLoading={isAnalyzing}
+                  />
+                </div>
+              </Card.Header>
+              
+              <Card.Body>
                 <Tabs
                   activeKey={activeTab}
                   onSelect={(key) => setActiveTab(key)}
-                  className="mb-0"
+                  className="mb-4"
                 >
                   <Tab eventKey="overview" title="Overview">
+                    <Row>
+                      <Col md={6}>
+                        <Card className="mb-4">
+                          <Card.Header>Neural Activity</Card.Header>
+                          <Card.Body style={{ height: '300px' }}>
+                            {neuralData && (
+                              <TimeSeries 
+                                data={neuralData} 
+                                height={250}
+                                defaultVisualization="line"
+                              />
+                            )}
+                          </Card.Body>
+                        </Card>
+                      </Col>
+                      
+                      <Col md={6}>
+                        <Card className="mb-4">
+                          <Card.Header>Brain-Ear Connectivity</Card.Header>
+                          <Card.Body style={{ height: '300px' }}>
+                            {connectivityData && (
+                              <ConnectivityNetwork 
+                                data={connectivityData} 
+                                width={400}
+                                height={250}
+                              />
+                            )}
+                          </Card.Body>
+                        </Card>
+                      </Col>
+                    </Row>
+                    
+                    <Card className="mb-4">
+                      <Card.Header>Cross-Modal Correlations</Card.Header>
+                      <Card.Body style={{ height: '400px' }}>
+                        {correlationData && (
+                          <CorrelationMatrix 
+                            data={correlationData}
+                            width={800}
+                            height={350}
+                          />
+                        )}
+                      </Card.Body>
+                    </Card>
                   </Tab>
-                  <Tab eventKey="neural" title="Neural Analysis">
+                  
+                  <Tab eventKey="neural" title="Neural Data">
+                    <Card>
+                      <Card.Header>
+                        <div className="d-flex justify-content-between align-items-center">
+                          <h5 className="m-0">Neural Time Series</h5>
+                          <div className="text-muted small">
+                            {neuralData?.metadata?.protocol} | {neuralData?.metadata?.recordingDate}
+                          </div>
+                        </div>
+                      </Card.Header>
+                      <Card.Body style={{ height: '600px' }}>
+                        {neuralData && (
+                          <TimeSeries 
+                            data={neuralData} 
+                            height={550}
+                            defaultVisualization="line"
+                          />
+                        )}
+                      </Card.Body>
+                    </Card>
                   </Tab>
-                  <Tab eventKey="microbiome" title="Microbiome Analysis">
+                  
+                  <Tab eventKey="connectivity" title="Connectivity">
+                    <Card>
+                      <Card.Header>
+                        <h5 className="m-0">Brain Region Connectivity</h5>
+                      </Card.Header>
+                      <Card.Body style={{ height: '600px' }}>
+                        {connectivityData && (
+                          <ConnectivityNetwork 
+                            data={connectivityData} 
+                            width={800}
+                            height={550}
+                          />
+                        )}
+                      </Card.Body>
+                    </Card>
                   </Tab>
-                  <Tab eventKey="auditory" title="Auditory Analysis">
+                  
+                  <Tab eventKey="correlation" title="Correlations">
+                    <Card>
+                      <Card.Header>
+                        <h5 className="m-0">Multi-Modal Feature Correlations</h5>
+                      </Card.Header>
+                      <Card.Body style={{ height: '600px' }}>
+                        {correlationData && (
+                          <CorrelationMatrix 
+                            data={correlationData}
+                            width={800}
+                            height={550}
+                          />
+                        )}
+                      </Card.Body>
+                    </Card>
                   </Tab>
-                  <Tab eventKey="correlation" title="Correlation Analysis">
-                  </Tab>
+                  
                   <Tab eventKey="results" title="Results">
+                    <Card>
+                      <Card.Header>
+                        <div className="d-flex justify-content-between align-items-center">
+                          <h5 className="m-0">Analysis Results</h5>
+                          <div className="text-muted small">
+                            {analysisResults?.date && new Date(analysisResults.date).toLocaleDateString()}
+                          </div>
+                        </div>
+                      </Card.Header>
+                      <Card.Body>
+                        {analysisResults ? (
+                          <ResultsSummary results={analysisResults} />
+                        ) : (
+                          <div className="text-center text-muted my-5">
+                            <p>No analysis results available</p>
+                            <Button 
+                              variant="primary" 
+                              onClick={() => setActiveTab('overview')}
+                            >
+                              Return to Overview
+                            </Button>
+                          </div>
+                        )}
+                      </Card.Body>
+                    </Card>
                   </Tab>
                 </Tabs>
-              </Card.Header>
-              <Card.Body>
-                {activeTab === 'overview' && (
-                  <Row>
-                    <Col md={6} className="mb-4">
-                      <Card className="h-100">
-                        <Card.Header>Neural Activity</Card.Header>
-                        <Card.Body>
-                          {neuralData && (
-                            <TimeSeries 
-                              data={neuralData} 
-                              height={300}
-                              defaultVisualization="line"
-                            />
-                          )}
-                        </Card.Body>
-                      </Card>
-                    </Col>
-                    
-                    <Col md={6} className="mb-4">
-                      <Card className="h-100">
-                        <Card.Header>Brain-Ear Connectivity</Card.Header>
-                        <Card.Body>
-                          {connectivityData && (
-                            <ConnectivityNetwork 
-                              data={connectivityData} 
-                              height={300}
-                              showLabels={true}
-                            />
-                          )}
-                        </Card.Body>
-                      </Card>
-                    </Col>
-                    
-                    <Col md={12}>
-                      <Card>
-                        <Card.Header>Neural-Microbiome-Auditory Correlations</Card.Header>
-                        <Card.Body>
-                          {correlationData && (
-                            <CorrelationMatrix 
-                              data={correlationData} 
-                              height={500}
-                              defaultGrouping="modality"
-                            />
-                          )}
-                        </Card.Body>
-                      </Card>
-                    </Col>
-                  </Row>
-                )}
-                
-                {activeTab === 'neural' && (
-                  <Row>
-                    <Col md={12}>
-                      <div className="pb-3">
-                        <h4>Neural Time Series Analysis</h4>
-                        <p>
-                          Visualize and analyze neural time series data, including EEG/MEG recordings 
-                          and derived measures.
-                        </p>
-                      </div>
-                      
-                      {neuralData && (
-                        <TimeSeries 
-                          data={neuralData} 
-                          height={600}
-                          defaultVisualization="line"
-                        />
-                      )}
-                    </Col>
-                  </Row>
-                )}
-                
-                {activeTab === 'correlation' && (
-                  <Row>
-                    <Col md={12}>
-                      <div className="pb-3">
-                        <h4>Multi-Modal Correlation Analysis</h4>
-                        <p>
-                          Explore correlations between neural, microbiome, and auditory features to 
-                          discover potential connections and patterns.
-                        </p>
-                      </div>
-                      
-                      {correlationData && (
-                        <CorrelationMatrix 
-                          data={correlationData} 
-                          height={700}
-                          defaultGrouping="modality"
-                        />
-                      )}
-                    </Col>
-                  </Row>
-                )}
-                
-                {activeTab === 'results' && (
-                  <Row>
-                    <Col md={12}>
-                      <div className="pb-3">
-                        <h4>Analysis Results</h4>
-                        <p>
-                          Summary of integrated analysis findings for neural, microbiome, and auditory data.
-                        </p>
-                      </div>
-                      
-                      {analysisResults && (
-                        <ResultsSummary 
-                          data={analysisResults}
-                        />
-                      )}
-                    </Col>
-                  </Row>
-                )}
               </Card.Body>
             </Card>
           </Col>
           
           <Col md={3}>
             <CollaborationPanel 
-              patientId={patient.id}
-              onFilterChange={handleCollaborationFilterChange}
+              patientId={patient.id} 
+              onAnnotationAdd={handleAnnotationAdd}
             />
           </Col>
         </Row>
       ) : (
-        <Row>
-          <Col className="text-center py-5">
-            <Alert variant="info">
-              Please select a patient to view data
-            </Alert>
-          </Col>
-        </Row>
+        <div className="text-center my-5">
+          <Alert variant="info">
+            Please select a patient to view data
+          </Alert>
+        </div>
       )}
-      
-      <Row className="mt-4">
-        <Col>
-          <footer className="border-top pt-3 text-muted small">
-            <p>© 2025 Brain-Ear Axis Platform | <a href="#">Documentation</a> | <a href="#">Support</a></p>
-          </footer>
-        </Col>
-      </Row>
     </Container>
   );
 };
