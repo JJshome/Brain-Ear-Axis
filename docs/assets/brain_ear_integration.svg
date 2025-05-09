@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="800" height="360" viewBox="0 0 800 360" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect x="0" y="0" width="800" height="360" rx="10" ry="10" fill="#f0f4f8" />
+  
+  <!-- Brain Section -->
+  <g transform="translate(150, 180)">
+    <!-- Brain -->
+    <ellipse cx="0" cy="0" rx="120" ry="80" fill="#ff7e79" stroke="#333" stroke-width="1.5">
+      <animate attributeName="rx" values="120;125;120" dur="3s" repeatCount="indefinite" />
+      <animate attributeName="ry" values="80;85;80" dur="3s" repeatCount="indefinite" />
+    </ellipse>
+    
+    <!-- Brain details -->
+    <path d="M-70,-20 Q-40,-50 0,-40 Q40,-50 70,-20" fill="none" stroke="#333" stroke-width="1">
+      <animate attributeName="d" values="M-70,-20 Q-40,-50 0,-40 Q40,-50 70,-20;M-72,-22 Q-42,-52 0,-42 Q42,-52 72,-22;M-70,-20 Q-40,-50 0,-40 Q40,-50 70,-20" dur="3s" repeatCount="indefinite" />
+    </path>
+    <path d="M-70,0 Q-40,40 0,30 Q40,40 70,0" fill="none" stroke="#333" stroke-width="1">
+      <animate attributeName="d" values="M-70,0 Q-40,40 0,30 Q40,40 70,0;M-72,2 Q-42,42 0,32 Q42,42 72,2;M-70,0 Q-40,40 0,30 Q40,40 70,0" dur="3s" repeatCount="indefinite" />
+    </path>
+    
+    <!-- Neural activity dots -->
+    <g>
+      <circle cx="-50" cy="-30" r="4" fill="#ffcc5c">
+        <animate attributeName="opacity" values="0.2;1;0.2" dur="1.5s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="40" cy="-20" r="3" fill="#ffcc5c">
+        <animate attributeName="opacity" values="0.2;1;0.2" dur="2s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="10" cy="30" r="3.5" fill="#ffcc5c">
+        <animate attributeName="opacity" values="0.2;1;0.2" dur="1.7s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="-30" cy="25" r="2.5" fill="#ffcc5c">
+        <animate attributeName="opacity" values="0.2;1;0.2" dur="1.3s" repeatCount="indefinite" />
+      </circle>
+    </g>
+    
+    <!-- Brain Label -->
+    <text x="0" y="0" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">Brain</text>
+  </g>
+  
+  <!-- Ear Section -->
+  <g transform="translate(640, 180)">
+    <!-- Outer ear -->
+    <path d="M-50,-60 C-30,-80 -10,-85 10,-70 C30,-55 40,-30 40,0 C40,30 30,50 10,60 C0,65 -20,70 -40,60 C-60,50 -65,30 -65,10 C-65,-10 -60,-30 -50,-60 Z" fill="#88d8b0" stroke="#333" stroke-width="1.5">
+      <animate attributeName="d" values="M-50,-60 C-30,-80 -10,-85 10,-70 C30,-55 40,-30 40,0 C40,30 30,50 10,60 C0,65 -20,70 -40,60 C-60,50 -65,30 -65,10 C-65,-10 -60,-30 -50,-60 Z;M-52,-62 C-32,-82 -12,-87 8,-72 C28,-57 38,-32 38,0 C38,30 28,52 8,62 C-2,67 -22,72 -42,62 C-62,52 -67,32 -67,12 C-67,-8 -62,-32 -52,-62 Z;M-50,-60 C-30,-80 -10,-85 10,-70 C30,-55 40,-30 40,0 C40,30 30,50 10,60 C0,65 -20,70 -40,60 C-60,50 -65,30 -65,10 C-65,-10 -60,-30 -50,-60 Z" dur="3s" repeatCount="indefinite" />
+    </path>
+    
+    <!-- Inner ear canal -->
+    <path d="M-20,0 L-65,0" fill="none" stroke="#333" stroke-width="2" />
+    
+    <!-- Ear drum -->
+    <ellipse cx="-65" cy="0" rx="5" ry="15" fill="#ffeead" stroke="#333" stroke-width="1">
+      <animate attributeName="ry" values="15;16;15" dur="1.5s" repeatCount="indefinite" />
+    </ellipse>
+    
+    <!-- Cochlea (simplified) -->
+    <path d="M-85,0 C-95,10 -105,5 -110,-5 C-115,-15 -115,-25 -105,-30 C-95,-35 -90,-25 -85,-15 C-85,-5 -85,0 -85,0 Z" fill="#ff6b6b" stroke="#333" stroke-width="1">
+      <animate attributeName="d" values="M-85,0 C-95,10 -105,5 -110,-5 C-115,-15 -115,-25 -105,-30 C-95,-35 -90,-25 -85,-15 C-85,-5 -85,0 -85,0 Z;M-85,0 C-95,10 -107,5 -112,-5 C-117,-15 -117,-25 -105,-32 C-95,-37 -90,-27 -85,-17 C-85,-7 -85,0 -85,0 Z;M-85,0 C-95,10 -105,5 -110,-5 C-115,-15 -115,-25 -105,-30 C-95,-35 -90,-25 -85,-15 C-85,-5 -85,0 -85,0 Z" dur="2.5s" repeatCount="indefinite" />
+    </path>
+    
+    <!-- Sound wave emanating from ear -->
+    <g stroke="#666" stroke-width="1" fill="none">
+      <path d="M-140,-40 C-150,-30 -150,-10 -140,0">
+        <animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite" />
+      </path>
+      <path d="M-160,-50 C-170,-35 -170,-5 -160,10">
+        <animate attributeName="opacity" values="0;0.7;0" dur="3s" repeatCount="indefinite" begin="0.5s" />
+      </path>
+      <path d="M-180,-60 C-190,-40 -190,0 -180,20">
+        <animate attributeName="opacity" values="0;0.5;0" dur="3s" repeatCount="indefinite" begin="1s" />
+      </path>
+    </g>
+    
+    <!-- Ear Label -->
+    <text x="-40" y="0" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">Ear</text>
+  </g>
+  
+  <!-- Connection lines between brain and ear -->
+  <g stroke="#4a6fa5" stroke-width="2" stroke-dasharray="5,5">
+    <!-- Neural connection -->
+    <path d="M270,160 C350,100 450,100 540,160" fill="none">
+      <animate attributeName="stroke-dashoffset" values="20;0" dur="3s" repeatCount="indefinite" />
+    </path>
+    <!-- Microbiome connection -->
+    <path d="M270,180 C350,180 450,180 540,180" fill="none">
+      <animate attributeName="stroke-dashoffset" values="20;0" dur="4s" repeatCount="indefinite" />
+    </path>
+    <!-- Physiological connection -->
+    <path d="M270,200 C350,250 450,250 540,200" fill="none">
+      <animate attributeName="stroke-dashoffset" values="20;0" dur="5s" repeatCount="indefinite" />
+    </path>
+  </g>
+  
+  <!-- Legend -->
+  <g transform="translate(400, 300)">
+    <rect x="-150" y="0" width="300" height="40" rx="5" ry="5" fill="rgba(255,255,255,0.7)" stroke="#333" stroke-width="1" />
+    
+    <circle cx="-120" cy="20" r="6" fill="#ff7e79" />
+    <text x="-110" y="24" font-family="Arial" font-size="12" fill="#333">Neural Signals</text>
+    
+    <circle cx="0" cy="20" r="6" fill="#88d8b0" />
+    <text x="10" y="24" font-family="Arial" font-size="12" fill="#333">Microbiome</text>
+    
+    <circle cx="100" cy="20" r="6" fill="#4a6fa5" />
+    <text x="110" y="24" font-family="Arial" font-size="12" fill="#333">Connectivity</text>
+  </g>
+  
+  <!-- Title -->
+  <text x="400" y="30" font-family="Arial" font-size="20" font-weight="bold" text-anchor="middle" fill="#333">Multi-Modal Integration of Brain-Ear Axis Data</text>
+</svg>
