@@ -103,14 +103,6 @@ analyzer.visualize_integrated_results()
 - [Multi-Omics Integration Case Study](https://github.com/JJshome/Brain-Ear-Axis/tree/main/examples/multi_omics_case_study.md)
 - [Connectivity Visualization Gallery](https://github.com/JJshome/Brain-Ear-Axis/tree/main/examples/connectivity_gallery.md)
 
-## 👥 Contributors
-
-- Jane Doe - Neural Signal Processing
-- John Smith - Microbiome Analysis
-- Alice Johnson - Connectivity Mapping
-- Bob Wilson - Multi-Omics Integration
-- Eve Brown - Data Visualization
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/JJshome/Brain-Ear-Axis/tree/main/LICENSE) file for details.
